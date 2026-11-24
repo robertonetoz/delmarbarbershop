@@ -1,0 +1,167 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #232122;
+  --color-ink-soft: #2e2b2d;
+  --color-ink-line: #3d393b;
+  --color-paper: #ffffff;
+  --color-lather: #f3f2f2;
+  --color-steel: #a19c9f; /* muted text on ink */
+  --color-graphite: #5c575a; /* muted text on paper */
+
+  --font-display: var(--font-gloock), "Times New Roman", serif;
+  --font-sans: var(--font-archivo), "Helvetica Neue", Arial, sans-serif;
+
+  --ease-razor: cubic-bezier(0.2, 0.7, 0.1, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "kern", "liga";
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+/* Condensed Archivo for sign-board text */
+.font-board {
+  font-family: var(--font-sans);
+  font-stretch: 72%;
+  font-variation-settings: "wdth" 72;
+}
+
+/* ---------- Barber-pole frame (the one bold move) ---------- */
+.pole {
+  --stripe: 13px;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--color-ink) 0 var(--stripe),
+    var(--color-paper) var(--stripe) calc(var(--stripe) * 2)
+  );
+  background-size: calc(var(--stripe) * 2 * 1.41421356) 100%;
+  animation: pole-turn 2.4s linear infinite;
+}
+
+.pole-thin {
+  --stripe: 7px;
+}
+
+@keyframes pole-turn {
+  to {
+    background-position: calc(var(--stripe) * 2 * 1.41421356) 0;
+  }
+}
+
+/* ---------- Page-load sequence for the hero ---------- */
+.frame-in {
+  animation: frame-in 1.1s var(--ease-razor) both;
+}
+@keyframes frame-in {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+}
+.line > span {
+  display: block;
+  animation: line-up 0.9s var(--ease-razor) both;
+  animation-delay: calc(0.45s + var(--i, 0) * 0.09s);
+}
+@keyframes line-up {
+  from {
+    transform: translateY(108%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fade-in 0.8s ease both;
+  animation-delay: var(--d, 0.9s);
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ---------- Price board leaders ---------- */
+.leader {
+  flex: 1;
+  min-width: 1.5rem;
+  border-bottom: 2px dotted color-mix(in srgb, var(--color-paper) 35%, transparent);
+  transform: translateY(-0.32em);
+}
+
+/* ---------- Lightbox ---------- */
+dialog.lightbox {
+  max-width: none;
+  max-height: none;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+dialog.lightbox::backdrop {
+  background: color-mix(in srgb, var(--color-ink) 94%, transparent);
+}
+dialog.lightbox[open] .lb-img {
+  animation: lb-in 0.35s var(--ease-razor) both;
+}
+@keyframes lb-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Map in the brand's two colors */
+.map-mono {
+  filter: grayscale(1) contrast(1.05) brightness(0.98);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .pole,
+  .frame-in,
+  .line > span,
+  .fade-in,
+  dialog.lightbox[open] .lb-img {
+    animation: none !important;
+  }
+}
