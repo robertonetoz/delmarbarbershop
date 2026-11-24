@@ -1,6 +1,8 @@
 // Everything the shop might want to edit lives here.
 
 export const shop = {
+  // Change to https://delmarbarbershop.com once the domain points to this site.
+  siteUrl: "https://delmarbarbershop.vercel.app",
   name: "Del Mar Barber Shop",
   tagline: "Shave & Haircut",
   phone: "956-602-0074",

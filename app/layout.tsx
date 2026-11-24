@@ -19,18 +19,26 @@ const archivo = Archivo({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://delmarbarbershop.com"),
+  metadataBase: new URL(shop.siteUrl),
   title: {
     default: "Del Mar Barber Shop | Haircuts, Fades & Shaves in Laredo, TX",
     template: "%s | Del Mar Barber Shop",
   },
   description:
     "Barbershop on E Del Mar Blvd in North Laredo. Men’s haircuts, fades, beard trims, straight-razor shaves and kids’ cuts. Book online or call 956-602-0074.",
+  // Preview images come from app/opengraph-image.png and app/twitter-image.png.
   openGraph: {
-    title: "Del Mar Barber Shop",
-    description: "Haircuts, fades and straight-razor shaves in North Laredo, TX.",
-    images: [{ url: "/images/storefront.jpg", width: 1080, height: 1351 }],
+    title: "Del Mar Barber Shop | Laredo, TX",
+    description: "Haircuts, fades and straight-razor shaves in North Laredo. Book online or call 956-602-0074.",
+    url: "/",
+    siteName: "Del Mar Barber Shop",
+    locale: "en_US",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Del Mar Barber Shop | Laredo, TX",
+    description: "Haircuts, fades and straight-razor shaves in North Laredo. Book online or call 956-602-0074.",
   },
 };
 
@@ -44,11 +52,11 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "BarberShop",
   name: shop.name,
-  image: "https://delmarbarbershop.com/images/storefront.jpg",
+  image: `${shop.siteUrl}/images/storefront.jpg`,
   telephone: "+1-956-602-0074",
   email: shop.email,
   priceRange: "$$",
-  url: "https://delmarbarbershop.com",
+  url: shop.siteUrl,
   address: {
     "@type": "PostalAddress",
     streetAddress: "1713 E Del Mar Blvd, Suite 3",
